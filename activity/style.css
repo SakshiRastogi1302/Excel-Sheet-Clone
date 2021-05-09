@@ -50,6 +50,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
 }
 
 .icon {
@@ -66,17 +67,17 @@ body {
     scrollbar-width: none;
 }
 
-.active_sheet {
+.active_sheet{
     background-color: white;
 }
 
-.top_left_block {
+.top_left_block{
     width: 2.5rem;
     height: 2.5rem;
     background-color: lightgray;
 }
 
-.block {
+.block{
     width: 2.5rem;
     height: 2.5rem;
     display: flex;
@@ -85,7 +86,7 @@ body {
     border: 1px solid black;
 }
 
-.top_row {
+.top_row{
     display: flex;
     position: absolute;
     height: 2.5rem;
@@ -94,7 +95,7 @@ body {
     background-color: lightgreen;
 }
 
-.cell {
+.cell{
     width: 5rem;
     height: 2.5rem;
     border: 1px solid black;
@@ -104,17 +105,17 @@ body {
 
 }
 
-.row {
+.row{
     display: flex;
 }
 
-.grid {
+.grid{
     position: absolute;
     top: 2.5rem;
     left: 2.5rem;
 }
 
-.left_column {
+.left_column{
     background-color: lightgreen;
     width: 2.5rem;
 }
