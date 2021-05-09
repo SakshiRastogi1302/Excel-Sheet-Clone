@@ -1,0 +1,120 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+.menu_container {
+    border: 2px solid black;
+    height: 5rem;
+}
+
+.formula_container {
+    border: 2px solid black;
+    height: 2rem;
+}
+
+.sheet_container {
+    border: 1px solid black;
+    height: 2.5rem;
+    display: flex;
+    background-color: lightgrey;
+
+}
+
+.grid_container {
+    height: calc(100vh - (5rem + 2rem + 2.5rem));
+    overflow: auto;
+    position: relative;
+}
+
+.icon_container {
+    border: 1px solid black;
+    width: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sheet_list {
+    width: 97%;
+    display: flex;
+    overflow: auto;
+}
+
+.sheet {
+    min-width: 4rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    font-size: 1.2rem;
+    color: green;
+}
+
+.sheet_list::-webkit-scrollbar {
+    display: none;
+}
+
+.sheet_list {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.active_sheet{
+    background-color: white;
+}
+
+.top_left_block{
+    width: 2.5rem;
+    height: 2.5rem;
+    background-color: lightgray;
+}
+
+.block{
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.top_row{
+    display: flex;
+    position: absolute;
+    height: 2.5rem;
+    top: 0rem;
+    left: 2.5rem;
+    background-color: lightgreen;
+}
+
+.cell{
+    width: 5rem;
+    height: 2.5rem;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.row{
+    display: flex;
+}
+
+.grid{
+    position: absolute;
+    top: 2.5rem;
+    left: 2.5rem;
+}
+
+.left_column{
+    background-color: lightgreen;
+    width: 2.5rem;
+}
