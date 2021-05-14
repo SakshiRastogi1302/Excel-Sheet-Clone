@@ -2,7 +2,7 @@ let topRow=document.querySelector(".top_row");
 let leftColumn=document.querySelector(".left_column");
 let gridBox=document.querySelector(".grid");
 
-// ****************************************** TOP ROW ******************************************************
+// ******************************************* TOP ROW ******************************************************
 
 let columns=26;
 for(let i=0;i<columns;i++){

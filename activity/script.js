@@ -51,7 +51,7 @@ function makeSheetActiveOnClick(e){
 
 
 for(let i=0;i<allCells.length;i++){
-    allCells[0].click(); //On opening first cell should always be clicked
+    allCells[0].click();
     allCells[i].addEventListener("click",handleCell);
 }
 
