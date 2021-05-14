@@ -6,28 +6,128 @@ body {
     margin: 0;
 }
 
+/* **************************************** MENU CONTAINER ************************************************** */
 .menu_container {
     border: 2px solid black;
-    height: 5rem;
+    height: 5rem; 
+    display: flex;
+    align-items: center;
+    /* Height will remain fix even if the size of the web page i.e. vh is decreased */
 }
+
+.menu_container>*{
+    width: 25%;
+    height:80%;
+    border-right: 1px solid black;
+
+} 
+
+/* FORMATTING CONTAINER */
+.formatting_container{
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.subgroup{
+    height:100%;
+    width:45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.subgroup>*{
+    width: 100%;
+}
+
+.BUI_Container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.BUI_Container>*{
+    width:30%;
+}
+
+.color_container{
+    display: flex;
+    justify-content: space-between;
+}
+
+.color_container>*{
+    width:47%;
+}
+
+/* ALIGNMENT CONTAINER */
+.alignment_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alignment_container>*{
+    height: 50%;
+    width: 20%;
+    cursor: pointer;
+
+}
+
+
+/* **************************************** FORMULA CONTAINER ************************************************** */
 
 .formula_container {
     border: 2px solid black;
-    height: 2rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: rgba(128, 128, 128, 0.562);
+    /* Height will remain fix even if the size of the web page i.e. vh is decreased */
+
 }
+
+.address_box{
+    width: 10%;
+    height: 70%;
+}
+
+.formula_box{
+    width: 85%;
+    height: 70%;
+}
+
+.separator{
+    font-size: 1.5rem;
+    width: 0.5%;
+}
+
+
+/* **************************************** SHEET CONTAINER ************************************************** */
 
 .sheet_container {
     border: 1px solid black;
     height: 2.5rem;
     display: flex;
     background-color: lightgrey;
+    /* Height will remain fix even if the size of the web page i.e. vh is decreased */
 
 }
 
-.grid_container {
-    height: calc(100vh - (5rem + 2rem + 2.5rem));
+.sheet_list {
+    width: 97%;
+    display: flex;
     overflow: auto;
-    position: relative;
+}
+
+.sheet {
+    /* min-width => atleast , max-width: => atmost  */
+    min-width: 4rem;  
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .icon_container {
@@ -38,26 +138,12 @@ body {
     align-items: center;
 }
 
-.sheet_list {
-    width: 97%;
-    display: flex;
-    overflow: auto;
-}
-
-.sheet {
-    min-width: 4rem;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
 .icon {
     font-size: 1.2rem;
     color: green;
 }
 
+/* To hide scrollbar */
 .sheet_list::-webkit-scrollbar {
     display: none;
 }
@@ -69,6 +155,17 @@ body {
 
 .active_sheet{
     background-color: white;
+}
+
+
+/* **************************************** GRID CONTAINER ************************************************** */
+
+.grid_container {
+    height: calc(100vh - (5rem + 2.5rem + 2.5rem));
+    overflow: auto;
+    position: relative;
+    /* Height will change when the size of the web page i.e. vh is decreased. So, to calculate remaining height we use calc() function */
+
 }
 
 .top_left_block{
@@ -95,14 +192,22 @@ body {
     background-color: lightgreen;
 }
 
-.cell{
-    width: 5rem;
-    height: 2.5rem;
+.top_row_cell{
+    min-width: 5rem;
+    max-width: 5rem;
+    min-height: 2.5rem;
     border: 1px solid black;
     display: flex;
-    justify-content: center;
+    justify-content: center;   
     align-items: center;
+}
 
+.cell{
+    min-width: 5rem;
+    max-width: 5rem;
+    min-height: 2.5rem;
+    border: 1px solid black;
+    padding-top: 0.4rem;
 }
 
 .row{

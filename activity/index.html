@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,16 +9,73 @@
     <link rel="stylesheet" href="style.css">
     <title>EXCEL CLONE</title>
 </head>
-<body>
 
-    <div class="menu_container">MENU CONTAINER</div>
-    <div class="formula_container">FORMULA CONTAINER</div>
+<body>
+    <!-- ******************************** MENU CONTAINER *************************************************** -->
+
+    <div class="menu_container">
+        <div class="formatting_container">
+            <div class="subgroup">
+                <select class="font_family">
+                    <option value="Arial">Arial</option>
+                    <option value="Cambria">Cambria</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Monospace">Monospace</option>
+                    <option value="Sans-Serif">Sans-Serif</option>
+                    <option value="Fantasy">Fantasy</option>
+                </select>
+
+                <div class="BUI_Container">
+                    <input type="button" value="B" class="bold">
+                    <input type="button" value="U" class="underline">
+                    <input type="button" value="I" class="italic">
+                </div>
+            </div>
+            <div class="subgroup">
+                <select class="font_size">
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                    <option value="16">16</option>
+                    <option value="20">20</option>
+                    <option value="32">32</option>
+                </select>
+
+
+                <div class="color_container">
+                    <input type="color" class="text_color">
+                    <input type="color" class="bg_color">
+                </div>
+
+            </div>
+
+        </div>
+        <div class="alignment_container">
+            <input type="button" value="L" class="left_alignment_button">
+            <input type="button" value="C" class="center_alignment_button">
+            <input type="button" value="R" class="right_alignment_button">
+        </div>
+    </div>
+
+    <!-- ******************************** FORMULA CONTAINER ************************************************ -->
+
+    <div class="formula_container">
+        <input type="text" class="address_box" readonly>
+        <div class="separator"><b>:</b></div>
+        <input type="text" class="formula_box">
+    </div>
+
+    <!-- ********************************** GRID CONTAINER ************************************************* -->
+
     <div class="grid_container">
         <div class="top_left_block block"></div>
         <div class="top_row"></div>
         <div class="left_column"></div>
         <div class="grid"></div>
     </div>
+
+    <!-- ********************************** SHEET CONTAINER ************************************************* -->
+
     <div class="sheet_container">
         <div class="icon_container">
             <i class="fas fa-plus icon"></i>
@@ -36,4 +94,5 @@
     <script src="init.js" defer></script>
     <script src="script.js" defer></script>
 </body>
+
 </html>
