@@ -14,6 +14,7 @@ let italicBtn = document.querySelector(".italic");
 let textColorContainerBtn = document.querySelector(".text_color");
 let backgroundColorContainerBtn = document.querySelector(".bg_color");
 let allAlignmentButtons = document.querySelectorAll(".alignment_container>*");
+let formulaBox = document.querySelector(".formula_box");
 let sheetDB = workSheet[0];
 
 
@@ -50,8 +51,10 @@ function addSheets() {
         allCells[i].style.fontStyle = "normal";
         allCells[i].style.textDecoration = "none";
         allCells[i].style.fontFamily = "Arial";
-        allCells[i].style.fontSize = "10px";
+        allCells[i].style.fontSize = "16px";
         allCells[i].style.textAlign = "left";
+        allCells[i].style.color = "black";
+        allCells[i].style.backgroundColor = "#FFFFFF";
         allCells[i].innerText = "";
     }
 
@@ -101,6 +104,15 @@ function handleCell(e) {
 
     let cellObject = sheetDB[rid][cid];
     // console.log(cellObject);
+
+    //Make formula box empty if not present in UI
+    if(cellObject.formula!=""){
+        formulaBox.value=cellObject.formula;
+    }
+    else{
+        formulaBox.value="";
+    }
+
     // BOLD
     if (cellObject.bold == true) {
         boldBtn.classList.add("active_button");
@@ -401,27 +413,162 @@ for (let i = 0; i < allCells.length; i++) {
         let cell = document.querySelector(`.cell[rid="${rid}"][cid="${cid}"]`);
         let cellObject = sheetDB[rid][cid];
         cellObject.value = cell.innerText;
+
+        if(cellObject.value==cell.innerText){
+            return;
+        }
+        //It makes formula bar empty if formula is present and you try to change the value
+        if(cellObject.formula!=""){ 
+            removeFormula(cellObject,address);
+        }
+        changeChildrens(cellObject);
     })
 
 }
 
 
 
-function setUI(sheetDB){
-    for(let i=0;i<sheetDB.length;i++){
-        for(let j=0;j<sheetDB[i].length;j++){
+function setUI(sheetDB) {
+    for (let i = 0; i < sheetDB.length; i++) {
+        for (let j = 0; j < sheetDB[i].length; j++) {
             let cell = document.querySelector(`.cell[rid="${i}"][cid="${j}"]`);
-            let{bold,italic,underline,fontFamily,fontSize,textColor,bgColor,halign,value}=sheetDB[i][j];
-            cell.style.fontWeight=bold==true?"bold":"normal";
-            cell.style.fontStyle=italic==true?"italic":"normal";
-            cell.style.textDecoration=underline==true?"underline":"none";
-            cell.style.fontFamily=fontFamily;
-            cell.style.fontSize=fontSize;
-            // cell.style.color=textColor;
-            // cell.style.backgroundColor=bgColor;
-            cell.style.textAlign=halign;
-            cell.innerText=value;
+            let {
+                bold,
+                italic,
+                underline,
+                fontFamily,
+                fontSize,
+                textColor,
+                bgColor,
+                halign,
+                value
+            } = sheetDB[i][j];
+            cell.style.fontWeight = bold == true ? "bold" : "normal";
+            cell.style.fontStyle = italic == true ? "italic" : "normal";
+            cell.style.textDecoration = underline == true ? "underline" : "none";
+            cell.style.fontFamily = fontFamily;
+            cell.style.fontSize = fontSize + "px";
+            cell.style.color = textColor;
+            cell.style.backgroundColor = bgColor;
+            cell.style.textAlign = halign;
+            cell.innerText = value;
         }
 
     }
+}
+
+
+
+
+
+// **************************************** FORMULA CODE *********************************************
+formulaBox.addEventListener("keydown", function (e) {
+    if (e.key == "Enter" && formulaBox.value != "") {
+        // Get Formula
+        let newFormula = formulaBox.value;
+
+        let address = addressBox.value;
+        let {
+            rid,
+            cid
+        } = convertIntoIndexes(address);
+        let cellObject=sheetDB[rid][cid];
+        let previousFormula=cellObject.formula;
+
+        if(previousFormula==newFormula){
+            return;
+        }
+
+        if(previousFormula!="" && previousFormula!=newFormula){
+            removeFormula(cellObject,address);
+        }
+
+
+        //Evaluate Formula
+        let formulaValue = evaluateFormula(newFormula);
+        // Set value
+        setUIByFormula(formulaValue,rid,cid);
+
+        // Set Formula in database
+        setFormula(newFormula, formulaValue, rid, cid,address);
+    }
+});
+
+
+function evaluateFormula(formula) {
+    let formulaTokens = formula.split(" ");
+    for (let i = 0; i < formulaTokens.length; i++) {
+        let firtCharOfToken = formulaTokens[i].charCodeAt(0);
+        if (firtCharOfToken >= 65 && firtCharOfToken <= 90) {
+            let {
+                rid,
+                cid
+            } = convertIntoIndexes(formulaTokens[i]);
+            let cellObject = sheetDB[rid][cid];
+            let {
+                value
+            } = cellObject;
+            formula = formula.replace(formulaTokens[i], value);
+        }
+    }
+
+    let eqSol = eval(formula);
+    // alert(eqSol);
+    return eqSol;
+}
+
+function setUIByFormula(value,rid,cid) {
+    document.querySelector(`.cell[rid="${rid}"][cid="${cid}"]`).innerText=value;
+
+}
+
+function setFormula(formula,value,rid,cid,address){
+    let cellObject = sheetDB[rid][cid];
+    cellObject.value = value;
+    cellObject.formula = formula;
+
+    let formulaTokens = formula.split(" ");
+    for (let i = 0; i < formulaTokens.length; i++) {
+        let firtCharOfToken = formulaTokens[i].charCodeAt(0);
+        if (firtCharOfToken >= 65 && firtCharOfToken <= 90) {
+            let parentRID_CID = convertIntoIndexes(formulaTokens[i]);
+            let parentObject = sheetDB[parentRID_CID.rid][parentRID_CID.cid];
+
+            parentObject.childrens.push(address);
+        }
+    }
+
+}   
+
+
+function changeChildrens(cellObject){
+    let childrenArr=cellObject.childrens;
+    for(let i=0;i<childrenArr.length;i++){
+        let childRID_CID = convertIntoIndexes(childrenArr[i]);
+        let childObject=sheetDB[childRID_CID.rid][childRID_CID.cid];
+         let formulaPresent=childObject.formula;
+         let updatedValue=evaluateFormula(formulaPresent);
+         setUIByFormula(updatedValue,childRID_CID.rid,childRID_CID.cid);
+         childObject.value=updatedValue;
+         changeChildrens(childObject);
+    }
+}
+
+function removeFormula(cellObject,address){
+    let formula = cellObject.formula;
+
+    let formulaTokens = formula.split(" ");
+    for (let i = 0; i < formulaTokens.length; i++) {
+        let firtCharOfToken = formulaTokens[i].charCodeAt(0);
+        if (firtCharOfToken >= 65 && firtCharOfToken <= 90) {
+            let parentRID_CID = convertIntoIndexes(formulaTokens[i]);
+            let parentObject = sheetDB[parentRID_CID.rid][parentRID_CID.cid];
+
+            let childrenArr=parentObject.childrens;
+            let idx=childrenArr.indexOf(address);
+            childrenArr.splice(idx,1);
+        }
+    }
+    cellObject.formula="";
+
 }

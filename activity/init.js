@@ -52,11 +52,13 @@ function initCurrentSheetDatabase() {
                 italic: false,
                 underline: false,
                 fontFamily: "Arial",
-                fontSize: "10",
+                fontSize: "16",
                 textColor: "black",
-                bgColor: "black",
+                bgColor: "#FFFFFF",
                 halign: "left",
-                value:""
+                value:"",
+                childrens:[],
+                formula:""
             };
 
             row.push(cellObj);
