@@ -38,3 +38,26 @@ for(let i=0;i<rows;i++){
     }
     gridBox.appendChild(row);
 }
+
+// *************************************** SHEET DATABASE *******************************************************
+let sheetDB=[];
+for(let i=0;i<100;i++){
+    let row=[];
+    for(let j=0;j<26;j++){
+        let cellObj={
+            bold:false,
+            italic:false,
+            underline:false,
+            fontFamily:"Arial",
+            fontSize:"10",
+            textColor:"black",
+            bgColor:"black",
+            halign:"left"
+        };
+
+        row.push(cellObj);
+    }
+    sheetDB.push(row);
+}
+
+// console.log(sheetDB);
