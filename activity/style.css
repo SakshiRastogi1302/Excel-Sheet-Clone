@@ -146,6 +146,16 @@ body {
     color: green;
 }
 
+.osd_container{
+    font-size: 1.5rem;
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    cursor: pointer;
+}
+
 /* To hide scrollbar */
 .sheet_list::-webkit-scrollbar {
     display: none;
@@ -175,6 +185,10 @@ body {
     width: 2.5rem;
     height: 2.5rem;
     background-color: lightgray;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
 }
 
 .block{
@@ -193,6 +207,7 @@ body {
     top: 0rem;
     left: 2.5rem;
     background-color: lightgreen;
+    z-index: 90;
 }
 
 .top_row_cell{
@@ -226,4 +241,8 @@ body {
 .left_column{
     background-color: lightgreen;
     width: 2.5rem;
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    z-index: 90;
 }

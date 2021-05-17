@@ -40,7 +40,7 @@ for (let i = 0; i < rows; i++) {
 }
 
 // *************************************** SHEET DATABASE *******************************************************
-workSheet = [];
+let workSheet = [];
 
 function initCurrentSheetDatabase() {
     let sheetDB = [];

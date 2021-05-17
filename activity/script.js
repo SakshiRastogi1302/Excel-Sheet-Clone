@@ -15,6 +15,10 @@ let textColorContainerBtn = document.querySelector(".text_color");
 let backgroundColorContainerBtn = document.querySelector(".bg_color");
 let allAlignmentButtons = document.querySelectorAll(".alignment_container>*");
 let formulaBox = document.querySelector(".formula_box");
+let gridContainer=document.querySelector(".grid_container");
+let top_Row=document.querySelector(".top_row");
+let leftCol=document.querySelector(".left_column");
+let topLeftBlock=document.querySelector(".top_left_block");
 let sheetDB = workSheet[0];
 
 
@@ -89,6 +93,16 @@ function makeSheetActiveOnClick(e) {
 // ********************************* Show Address In Address Box On Clicking A Cell ******************************
 for (let i = 0; i < allCells.length; i++) {
     allCells[i].addEventListener("click", handleCell);
+     // Change height of top row bloc acc to cell
+    
+     allCells[i].addEventListener("keydown", function (e) {
+        let obj = allCells[i].getBoundingClientRect();
+        let height = obj.height;
+        let address = addressBox.value;
+        let { rid, cid } = convertIntoIndexes(address);
+        let leftCol = document.querySelectorAll(".left_column .block")[rid];
+        leftCol.style.height = height + "px";
+    });
 }
 
 function handleCell(e) {
@@ -184,7 +198,19 @@ function handleCell(e) {
     backgroundColorContainerBtn.value = cellObject.bgColor;
 
 
+
 }
+
+gridContainer.addEventListener("scroll", function () {
+    // console.log(e);
+    let top = gridContainer.scrollTop;
+    let left = gridContainer.scrollLeft;
+    console.log(left);
+    topLeftBlock.style.top = top + "px";
+    top_Row.style.top = top + "px";
+    leftCol.style.left = left + "px";
+    topLeftBlock.style.left = left + "px";
+})
 
 allCells[0].click();
 
@@ -523,7 +549,7 @@ function setUIByFormula(value,rid,cid) {
 }
 
 function setFormula(formula,value,rid,cid,address){
-    let cellObject = sheetDB[rid][cid];
+    let cellObject = sheetDB[rid][cid]; 
     cellObject.value = value;
     cellObject.formula = formula;
 
